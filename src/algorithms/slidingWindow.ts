@@ -1,0 +1,3 @@
+import type {Transaction} from '../lib/types';
+/** Rolling day sums; date keys are ISO YYYY-MM-DD. O(n + d), d=number of days. */
+export function rollingExpenses(items:Transaction[],days=7,endDate=new Date().toISOString().slice(0,10)){const end=new Date(`${endDate}T00:00:00Z`),start=new Date(end);start.setUTCDate(start.getUTCDate()-days+1);const sums=new Map<string,number>();for(let i=0;i<days;i++){const d=new Date(start);d.setUTCDate(start.getUTCDate()+i);sums.set(d.toISOString().slice(0,10),0)}for(const t of items){if(t.type!=='expense')continue;if(sums.has(t.date))sums.set(t.date,sums.get(t.date)!+t.amount)}return [...sums].map(([date,amount])=>({date,amount}));}

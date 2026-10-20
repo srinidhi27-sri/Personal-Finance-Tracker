@@ -1,0 +1,3 @@
+class TrieNode { children=new Map<string,TrieNode>(); terminal=false; }
+/** Prefix insert O(L); lookup O(P + matches), where L is word length and P prefix length. */
+export class Trie { private root=new TrieNode(); insert(word:string){let n=this.root;for(const c of word.toLowerCase()){if(!n.children.has(c))n.children.set(c,new TrieNode());n=n.children.get(c)!;}n.terminal=true;} searchPrefix(prefix:string){let n=this.root;for(const c of prefix.toLowerCase()){const next=n.children.get(c);if(!next)return [] as string[];n=next;}const out:string[]=[];const walk=(node:TrieNode,s:string)=>{if(node.terminal)out.push(s);for(const [c,ch] of node.children)walk(ch,s+c)};walk(n,prefix.toLowerCase());return out.sort();} }

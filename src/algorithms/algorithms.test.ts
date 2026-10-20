@@ -1,0 +1,23 @@
+import {describe,it,expect} from 'vitest';
+import {mergeSort} from './mergeSort';
+import {binarySearch} from './binarySearch';
+import {MinHeap} from './minHeap';
+import {Trie} from './trie';
+import {UndoStack} from './stack';
+import {SpendingGraph} from './graph';
+import {allocateBudget} from './budgetDP';
+import {rollingExpenses} from './slidingWindow';
+import {transactionIndex,findTransaction} from './hashMap';
+import type {Transaction} from '../lib/types';
+const tx=(id:string,amount:number,date:string='2026-10-20'):Transaction=>({id,title:id,amount,type:'expense',category:'Food',date});
+describe('FinWise ADS algorithms',()=>{
+ it('merge sort orders values and does not mutate input',()=>{const a=[5,1,4,1];expect(mergeSort(a,(x,y)=>x-y)).toEqual([1,1,4,5]);expect(a).toEqual([5,1,4,1])});
+ it('binary search finds a value and handles missing/empty',()=>{expect(binarySearch([1,3,7,9],7,x=>x)).toBe(2);expect(binarySearch([1,3,7],5,x=>x)).toBe(-1);expect(binarySearch([],1,x=>x)).toBe(-1)});
+ it('hash map indexes transaction IDs',()=>{const m=transactionIndex([tx('a',3)]);expect(findTransaction(m,'a')?.amount).toBe(3);expect(findTransaction(m,'x')).toBeNull()});
+ it('min heap pops in priority order and handles empty',()=>{const h=new MinHeap<number>((a,b)=>a-b);[5,1,3,2].forEach(x=>h.push(x));expect([h.pop(),h.pop(),h.pop(),h.pop(),h.pop()]).toEqual([1,2,3,5,null])});
+ it('trie returns case-insensitive prefix matches',()=>{const t=new Trie();['Coffee','Course','Cab'].forEach(x=>t.insert(x));expect(t.searchPrefix('co')).toEqual(['coffee','course']);expect(t.searchPrefix('z')).toEqual([])});
+ it('stack follows LIFO and returns null when empty',()=>{const s=new UndoStack<number>();expect(s.pop()).toBeNull();s.push(1);s.push(2);expect(s.pop()).toBe(2);expect(s.peek()).toBe(1)});
+ it('graph BFS visits connected vertices once',()=>{const g=new SpendingGraph();g.addEdge('Food','Bills');g.addEdge('Bills','Transport');expect(g.bfs('Food')).toEqual(['Food','Bills','Transport']);expect(g.bfs('none')).toEqual([])});
+ it('sliding window includes zero days and sums expenses only',()=>{const rows=[tx('a',20,'2026-10-20'),{...tx('b',99,'2026-10-20'),type:'income' as const}];const out=rollingExpenses(rows,2,'2026-10-20');expect(out).toEqual([{date:'2026-10-19',amount:0},{date:'2026-10-20',amount:20}])});
+ it('DP budget allocator respects cap and picks a feasible best set',()=>{const r=allocateBudget([{name:'a',cost:3,priority:5},{name:'b',cost:4,priority:6},{name:'c',cost:2,priority:4}],6);expect(r.totalCost).toBeLessThanOrEqual(6);expect(r.priority).toBe(10)});
+});
