@@ -36,11 +36,16 @@ Personal spending data is often fragmented across notes, messages and bank notif
 - Respect reduced-motion preferences and visible keyboard focus.
 
 ## Architecture
-1. **Presentation:** React components, responsive CSS and Recharts.
-2. **Domain utilities:** pure financial calculation functions and typed record models.
-3. **ADS modules:** hash map, merge sort, binary search, min-heap, trie, graph, sliding window, undo stack and dynamic programming.
-4. **Persistence:** localStorage for browser demo mode; optional Supabase client for auth and transaction CRUD. PostgreSQL migration defines all primary finance tables and RLS policies.
+## Architecture
 
+1. **Presentation:** React components, responsive CSS and Recharts.
+2. **Domain utilities:** Pure financial calculation functions and typed record models.
+3. **ADS modules:** Hash map, merge sort, binary search, min-heap, trie, graph, sliding window, undo stack and dynamic programming.
+4. **C Programming Module:** C Financial Calculator implemented in `c_module/finance.c`.
+5. **Persistence:** localStorage for browser demo mode; optional Supabase client for authentication and transaction CRUD. PostgreSQL migration defines all primary finance tables and RLS policies.
+
+**System Architecture Flow:**
+React UI ↔ TypeScript Services & ADS Modules ↔ C Financial Calculator (c_module/finance.c) ↔ Supabase Auth + PostgreSQL + RLS
 ## Database design
 - `profiles`: one profile per auth user; primary key references `auth.users(id)`.
 - `categories`: optional owner (`NULL` means global starter category), name, type, display color and icon.
