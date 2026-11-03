@@ -86,9 +86,16 @@ supabase/migrations/      PostgreSQL schema, constraints, indexes and RLS
 - Production cloud mode needs Supabase project setup and RLS verification. Complete cloud CRUD for budgets, goals and bills before relying on cross-device persistence.
 - Sample transactions are static demonstration fixtures and labelled as examples in the interface.
 ## C Programming Module
+## C Programming Module — Financial Calculator
 
-The project includes a C module for:
-- Income calculation
-- Expense calculation
-- Savings calculation
-- Budget status checking
+FinWise includes a C-based Financial Calculator designed to perform basic financial calculations.
+
+### Features
+- **Income Calculation:** Calculates total income.
+- **Expense Calculation:** Calculates total expenses.
+- **Savings Calculation:** Determines savings from income and expenses.
+- **Budget Analysis:** Checks spending against the available budget.
+
+### Purpose
+The C module demonstrates the practical application of C programming in financial calculations and complements the React and TypeScript-based web interface.
+
