@@ -85,7 +85,6 @@ supabase/migrations/      PostgreSQL schema, constraints, indexes and RLS
 - Browser demo data is device/browser-specific and is not secure cloud storage.
 - Production cloud mode needs Supabase project setup and RLS verification. Complete cloud CRUD for budgets, goals and bills before relying on cross-device persistence.
 - Sample transactions are static demonstration fixtures and labelled as examples in the interface.
-## C Programming Module
 ## C Programming Module — Financial Calculator
 
 FinWise includes a C-based Financial Calculator designed to perform basic financial calculations.
