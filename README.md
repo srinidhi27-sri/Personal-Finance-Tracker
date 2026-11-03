@@ -85,3 +85,10 @@ supabase/migrations/      PostgreSQL schema, constraints, indexes and RLS
 - Browser demo data is device/browser-specific and is not secure cloud storage.
 - Production cloud mode needs Supabase project setup and RLS verification. Complete cloud CRUD for budgets, goals and bills before relying on cross-device persistence.
 - Sample transactions are static demonstration fixtures and labelled as examples in the interface.
+## C Programming Module
+
+The project includes a C module for:
+- Income calculation
+- Expense calculation
+- Savings calculation
+- Budget status checking
